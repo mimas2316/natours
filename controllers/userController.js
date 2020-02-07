@@ -33,7 +33,6 @@ const upload = multer({
 });
 
 const deletePhotoFromServer = async photo => {
-  console.log(process.cwd());
   const path = `${__dirname}/../public/img/users/${photo}`;
   await fs.unlink(path, err => {
     if (err) return console.log(err);

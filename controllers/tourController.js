@@ -33,7 +33,6 @@ exports.uploadTourImages = upload.fields([
 
 exports.resizeTourImages = catchAsync(async (req, res, next) => {
   if (!req.files.imageCover || !req.files.images) return next();
-  console.log(req.body.price);
 
   // 1) Cover image
   req.body.imageCover = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
@@ -113,8 +112,6 @@ exports.getTourStats = catchAsync(async (req, res, next) => {
     //   $match: { _id: { $ne: 'EASY' } } // Możemy powtarzać stages
     // }
   ]);
-
-  console.log(stats.length);
 
   res.status(200).json({
     status: 'success',

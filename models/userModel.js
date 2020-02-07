@@ -106,8 +106,6 @@ userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
     // parseInt jest ew. potrzebny, bo zamienia float na integer, czyli liczbę z przecinkiem na całkowitą
     const changedTimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
 
-    console.log(changedTimestamp, JWTTimestamp);
-
     return JWTTimestamp < changedTimestamp; // Token został wystawiony, a później hasło zostalo zmienione.
   }
 

@@ -7,7 +7,7 @@ export const updateSettings = async (data, type) => {
   try {
     // Tu się dokonuje update usera w API, promise zwraca nam result.
     const response = await axios.patch(
-      `http://127.0.0.1:3000/api/v1/users/${type === 'data' ? 'updateMe' : 'updateMyPassword'}`,
+      `/api/v1/users/${type === 'data' ? 'updateMe' : 'updateMyPassword'}`,
       data
     );
 

@@ -32,7 +32,7 @@ exports.updateBookingParticipants = catchAsync(async (req, res, next) => {
   // Metoda id() jest do szukania embedded documents po _id
   const startDate = tour.startDates.id(req.body.date);
   startDate.participants++;
-  //console.log(startDate);
+  
 
   await tour.save();
   next();

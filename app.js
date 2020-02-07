@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression'); // Kompresuje text responds
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -65,6 +66,8 @@ app.use(
     whitelist: ['duration', 'ratingsAverage', 'ratingsQuantity', 'maxGroupSize', 'difficulty', 'price']
   })
 );
+
+app.use(compression()) // Ta funkcja jest wywoływana, bo ona zwraca middleware function, która będzie wykonywana w przypadku requesta.
 
 // Test middleware
 app.use((req, res, next) => {
