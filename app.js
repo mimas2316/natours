@@ -18,7 +18,7 @@ const bookingRouter = require(`./routes/bookingRoutes`);
 const viewRouter = require(`./routes/viewRoutes`);
 
 // Start express app
-const app = express();
+const app = express('trust proxy'); // Mamy deploy na heroku, a on przez proxy zmienia request, żeby aplikacja działała, musi być to.
 
 app.set('view engine', 'pug'); // Najlepiej to określić na początku
 app.set('views', path.join(__dirname, 'views')); // Tworzy path '__dirname/views', nie musimy martwić się o to, czy wstawiać slash czy nie (slash może być w dirname, a my tego nie wiemy itd.)

@@ -35,3 +35,11 @@ process.on('unhandledRejection', err => {
     process.exit(1);
   });
 });
+
+process.on('SIGTERM', () => {
+  console.log('SIGTERM RECIEVED. Shutting down gracefully');
+  // Server.close zamknie serwer, ale najpierw wykona wszystkie oczekujące requesty. Nie musimy używać server.exit, ponieważ SIGTERM sam z siebie spowoduje, że aplikacja zostanie wyłączona.
+  server.close(() => {
+    console.log('Process terminated!');
+  });
+});
