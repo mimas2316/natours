@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression'); // Kompresuje text responds
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -24,6 +25,15 @@ app.set('view engine', 'pug'); // Najlepiej to określić na początku
 app.set('views', path.join(__dirname, 'views')); // Tworzy path '__dirname/views', nie musimy martwić się o to, czy wstawiać slash czy nie (slash może być w dirname, a my tego nie wiemy itd.)
 
 // 1) GLOBAL MIDDLEWARES -> Za pomocą use dodajemy middleware do naszego middleware stack.
+// Implement CORS
+app.use(cors()); // Tak aktywujemy CORS, czyli udostępniami nasze API dla klientów z innych domen a nawet subdomen. To działa tylko dla GET i POST requests, czyli simple requests.
+
+// app.use(cors({
+//   origin: 'https://www.natours.com'
+// })) ---> Przykład, jeśli byśmy chcieli aktywować cors tylko dla jednej domeny.
+
+app.options('*', cors()); // Tak aktywujemy cors dla non-simple requests, czyli patch, delete, put. Options to metoda http, na którą musimy zareagować. Browser wyśle options request, zanim wyśle właściwy np. delete request (preflight request). To jest nasz response na ten request, że pozwalamy nas cors.
+
 // Serving static files
 // app.use(express.static(`${__dirname}/public`));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -67,7 +77,7 @@ app.use(
   })
 );
 
-app.use(compression()) // Ta funkcja jest wywoływana, bo ona zwraca middleware function, która będzie wykonywana w przypadku requesta.
+app.use(compression()); // Ta funkcja jest wywoływana, bo ona zwraca middleware function, która będzie wykonywana w przypadku requesta.
 
 // Test middleware
 app.use((req, res, next) => {
