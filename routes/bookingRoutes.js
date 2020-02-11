@@ -17,9 +17,7 @@ router.use(authController.restrictTo('admin', 'lead-guide'));
 router
   .route('/')
   .get(bookingController.getAllBookings)
-  .post(
-    /*bookingController.updateBookingParticipants, TEST!!! jak coś to usunąć*/ bookingController.createBooking
-  )
+  .post(bookingController.createBooking)
   .delete(bookingController.deleteAllBookings);
 
 router
